@@ -18,6 +18,7 @@ const styles = {
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const Loading = () => {
+	// 函数式组件 调用生命周期
 	useEffect(() => {
 		NProgress.start();
 		return () => {

@@ -11,18 +11,18 @@ const menuList = [
 	},
 	{
 		title: '商品',
-		icon: 'MenuUnfoldOutlined',
+		icon: 'AppstoreOutlined',
 		path: '/products',
 		children: [
 			{
 				title: '品类管理',
-				icon: 'MenuUnfoldOutlined',
+				icon: 'BarsOutlined',
 				path: '/category',
 				roles: ['admin', 'editor', 'guest'],
 			},
 			{
 				title: '商品管理',
-				icon: 'MenuUnfoldOutlined',
+				icon: 'ToolOutlined',
 				path: '/product',
 				roles: ['admin', 'editor', 'guest'],
 			},

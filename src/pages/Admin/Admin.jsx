@@ -2,7 +2,6 @@ import React, { Component, Suspense } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import DocumentTitle from 'react-document-title';
 
 import { getMenuItemInMenuListByProperty } from '../../utils';
 import Head from '../../components/Head';
@@ -32,16 +31,23 @@ export default class Admin extends Component {
 		return title;
 	};
 
-	routeIn = (nexState, replace, cb) => {
-		console.log(12312, nexState, replace, cb);
-		// document.title = this.getPageTitle(menuList, pathname);
-	};
+	componentDidMount() {
+		const {
+			location: { pathname },
+		} = this.props;
+		const title = this.getPageTitle(menuList, pathname);
+		document.title = title;
+	}
 
 	render() {
 		const { collapsed } = this.state;
 		// const { role, location } = this.props;
 		const { location } = this.props;
 		const { pathname } = location;
+
+		const title = this.getPageTitle(menuList, pathname);
+		document.title = title;
+
 		// console.log(this.props);
 		const handleFilter = route => {
 			// 过滤没有权限的页面
@@ -53,7 +59,6 @@ export default class Admin extends Component {
 				<Left collapsed={collapsed} toggle={this.toggle} />
 				<Layout className='site-layout'>
 					<Head collapsed={collapsed} toggle={this.toggle} />
-					{/* <DocumentTitle title={this.getPageTitle(menuList, pathname)}> */}
 					<Content
 						className='site-layout-background'
 						style={{
@@ -62,11 +67,11 @@ export default class Admin extends Component {
 							minHeight: 280,
 						}}>
 						<TransitionGroup>
-							<CSSTransition key={location.pathname} timeout={500} classNames='fade' exit={false}>
+							<CSSTransition key={location.pathname} timeout={5000} classNames='fade' exit={false}>
 								<Suspense location={location} fallback={<Loading />}>
 									<Switch>
 										{routeList.map(route => {
-											return handleFilter(route) && <Route onEnter={this.routeIn} component={route.component} key={route.path} path={route.path} />;
+											return handleFilter(route) && <Route component={route.component} key={route.path} path={route.path} />;
 										})}
 										<Redirect exact from='/' to='/home' />
 									</Switch>
@@ -74,7 +79,6 @@ export default class Admin extends Component {
 							</CSSTransition>
 						</TransitionGroup>
 					</Content>
-					{/* </DocumentTitle> */}
 					<Footer style={{ textAlign: 'center', backgroundColor: '#fff', color: '#aaaaaa', padding: '13px 40px' }}>推荐使用谷歌浏览器， 可以获得更佳页面操作体验</Footer>
 				</Layout>
 			</Layout>
