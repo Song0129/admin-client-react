@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-// import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
+import * as Icon from '@ant-design/icons';
 
 import './index.less';
 import menuList from '../../config/menuConfig';
@@ -18,6 +18,10 @@ class Left extends Component {
 		this.props.toggle();
 	};
 
+	geticon = iconname => {
+		return React.createElement(Icon[iconname]);
+	};
+
 	getMenuNodes = menuList => {
 		// 得到当前请求的路由路径
 		const path = this.props.location.pathname;
@@ -28,7 +32,7 @@ class Left extends Component {
 			// 向pre添加<Menu.Item>
 			if (!item.children) {
 				pre.push(
-					<Menu.Item key={item.path}>
+					<Menu.Item key={item.path} icon={this.geticon(item.icon)}>
 						<Link to={item.path}>
 							{/* <Icon type={item.icon} /> */}
 							<span>{item.title}</span>
@@ -47,6 +51,7 @@ class Left extends Component {
 				pre.push(
 					<SubMenu
 						key={item.path}
+						icon={this.geticon(item.icon)}
 						title={
 							<span>
 								{/* <Icon type={item.icon} /> */}

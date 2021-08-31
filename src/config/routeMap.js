@@ -1,13 +1,13 @@
-import Loadable from 'react-loadable';
-import Loading from '../components/Loading';
-const Home = Loadable({ loader: () => import(/*webpackChunkName:'Home'*/ '../pages/Home/Home.jsx'), loading: Loading });
-const Category = Loadable({ loader: () => import(/*webpackChunkName:'Category'*/ '../pages/Category/Category.jsx'), loading: Loading });
-const Product = Loadable({ loader: () => import(/*webpackChunkName:'Product'*/ '../pages/Product/Product.jsx'), loading: Loading });
-const Role = Loadable({ loader: () => import(/*webpackChunkName:'Role'*/ '../pages/Role/Role.jsx'), loading: Loading });
-const User = Loadable({ loader: () => import(/*webpackChunkName:'User'*/ '../pages/User/User.jsx'), loading: Loading });
-const Bar = Loadable({ loader: () => import(/*webpackChunkName:'Bar'*/ '../pages/Charts/Bar.jsx'), loading: Loading });
-const Line = Loadable({ loader: () => import(/*webpackChunkName:'Line'*/ '../pages/Charts/Line.jsx'), loading: Loading });
-const Pie = Loadable({ loader: () => import(/*webpackChunkName:'Pie'*/ '../pages/Charts/Pie.jsx'), loading: Loading });
+import { lazy } from 'react';
+
+const Home = lazy(() => import(/*webpackChunkName:'Home'*/ '../pages/Home/Home.jsx'));
+const Category = lazy(() => import(/*webpackChunkName:'Category'*/ '../pages/Category/Category.jsx'));
+const Product = lazy(() => import(/*webpackChunkName:'Product'*/ '../pages/Product/Product.jsx'));
+const Role = lazy(() => import(/*webpackChunkName:'Role'*/ '../pages/Role/Role.jsx'));
+const User = lazy(() => import(/*webpackChunkName:'User'*/ '../pages/User/User.jsx'));
+const Bar = lazy(() => import(/*webpackChunkName:'Bar'*/ '../pages/Charts/Bar.jsx'));
+const Line = lazy(() => import(/*webpackChunkName:'Line'*/ '../pages/Charts/Line.jsx'));
+const Pie = lazy(() => import(/*webpackChunkName:'Pie'*/ '../pages/Charts/Pie.jsx'));
 
 const routes = [
 	{ path: '/home', component: Home, roles: ['admin', 'editor', 'guest'] },
