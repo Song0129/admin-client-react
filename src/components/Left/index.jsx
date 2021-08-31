@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
+// import { UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
 
 import './index.less';
-// import menuList from '../../config/menuConfig';
+import menuList from '../../config/menuConfig';
 
 const { Sider } = Layout;
+const SubMenu = Menu.SubMenu;
 
-export default class Left extends Component {
+class Left extends Component {
 	state = {
 		collapsed: false,
 	};
@@ -17,8 +18,62 @@ export default class Left extends Component {
 		this.props.toggle();
 	};
 
+	getMenuNodes = menuList => {
+		// 得到当前请求的路由路径
+		const path = this.props.location.pathname;
+
+		return menuList.reduce((pre, item) => {
+			// 如果当前用户有item对应的权限, 才需要显示对应的菜单项
+			// if (this.hasAuth(item)) {
+			// 向pre添加<Menu.Item>
+			if (!item.children) {
+				pre.push(
+					<Menu.Item key={item.path}>
+						<Link to={item.path}>
+							{/* <Icon type={item.icon} /> */}
+							<span>{item.title}</span>
+						</Link>
+					</Menu.Item>
+				);
+			} else {
+				// 查找一个与当前请求路径匹配的子Item
+				const cItem = item.children.find(cItem => path.indexOf(cItem.path) === 0);
+				// 如果存在, 说明当前item的子列表需要打开
+				if (cItem) {
+					this.openKey = item.path;
+				}
+
+				// 向pre添加<SubMenu>
+				pre.push(
+					<SubMenu
+						key={item.path}
+						title={
+							<span>
+								{/* <Icon type={item.icon} /> */}
+								<span>{item.title}</span>
+							</span>
+						}>
+						{this.getMenuNodes(item.children)}
+					</SubMenu>
+				);
+			}
+			// }
+
+			return pre;
+		}, []);
+	};
+
 	render() {
+		this.menuNodes = this.getMenuNodes(menuList);
+
 		const { collapsed } = this.props;
+		const openKey = this.openKey;
+		let path = this.props.location.pathname;
+		// console.log('render()', path);
+		if (path.indexOf('/product') === 0) {
+			// 当前请求的是商品或其子路由界面
+			path = '/product';
+		}
 		return (
 			<Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
 				<div className='logo'>
@@ -39,24 +94,12 @@ export default class Left extends Component {
 						)}
 					</a>
 				</div>
-				<Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-					<Menu.Item key='1' icon={<UserOutlined />}>
-						<Link to='/login'>
-							<span>登录</span>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key='2' icon={<VideoCameraOutlined />}>
-						<Link to='/admin'>
-							<span>admin页面</span>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key='3' icon={<UploadOutlined />}>
-						<Link to='/users'>
-							<span>users页面</span>
-						</Link>
-					</Menu.Item>
+				<Menu mode='inline' theme='dark' selectedKeys={[path]} defaultOpenKeys={[openKey]}>
+					{this.menuNodes}
 				</Menu>
 			</Sider>
 		);
 	}
 }
+
+export default withRouter(Left);
