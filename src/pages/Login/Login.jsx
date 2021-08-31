@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Redirect } from 'react-router-dom';
 
 import './login.less';
 import logo from './images/logo.png';
@@ -41,6 +42,11 @@ export default class Login extends Component {
 	};
 
 	render() {
+		const user = memoryUtils.user;
+		console.log(user);
+		if (user && user._id) {
+			return <Redirect to='/' />;
+		}
 		return (
 			<div className='login'>
 				<header className='login-header'>
