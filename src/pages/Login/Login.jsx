@@ -3,7 +3,7 @@ import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Redirect } from 'react-router-dom';
 
-import './login.less';
+import './Login.less';
 import logo from './images/logo.png';
 
 import { reqLogin } from '../../api';

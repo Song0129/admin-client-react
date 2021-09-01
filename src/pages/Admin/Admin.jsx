@@ -9,7 +9,7 @@ import Left from '../../components/Left';
 import Loading from '../../components/Loading';
 import routeList from '../../config/routeMap';
 import menuList from '../../config/menuConfig';
-import './admin.less';
+import './Admin.less';
 
 const { Content, Footer } = Layout;
 
