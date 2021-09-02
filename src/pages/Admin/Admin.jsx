@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'; // 引入动画效果
 
 import { getMenuItemInMenuListByProperty } from '../../utils';
+import memoryUtils from '../../utils/memoryUtils';
 import Head from '../../components/Head';
 import Left from '../../components/Left';
 import Loading from '../../components/Loading';
@@ -54,6 +55,13 @@ export default class Admin extends Component {
 			// return role === 'admin' || !route.roles || route.roles.includes(role);
 			return true;
 		};
+
+		const user = memoryUtils.user;
+		// 如果内存没有存储user ==> 当前没有登陆
+		if (!user || !user._id) {
+			// 自动跳转到登陆(在render()中)
+			return <Redirect to='/login' />;
+		}
 		return (
 			<Layout style={{ height: '100%' }}>
 				<Left collapsed={collapsed} toggle={this.toggle} />
