@@ -1,3 +1,6 @@
+/**
+ * 懒加载引入路由
+ */
 import { lazy } from 'react';
 
 const Home = lazy(() => import(/*webpackChunkName:'Home'*/ '../pages/Home/Home.jsx'));

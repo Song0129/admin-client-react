@@ -22,13 +22,13 @@ export default class Login extends Component {
 		const { username, password } = event;
 		const result = await reqLogin(username, password);
 		console.log(result);
-		if (result.status === 0) {
+		if (result?.data.status === 0) {
 			// 登陆成功
 			// 提示登陆成功
 			message.success('登陆成功');
 
 			// 保存user
-			const user = result.data;
+			const user = result.data.data;
 			memoryUtils.user = user; // 保存在内存中
 			storageUtils.saveUser(user); // 保存到local中
 
@@ -37,7 +37,7 @@ export default class Login extends Component {
 		} else {
 			// 登陆失败
 			// 提示错误信息
-			message.error(result.msg);
+			message.error(result?.data.msg);
 		}
 	};
 

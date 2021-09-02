@@ -4,6 +4,7 @@ import { Layout, Menu } from 'antd';
 import * as Icon from '@ant-design/icons';
 
 import './index.less';
+// 引入所有的menu
 import menuList from '../../config/menuConfig';
 
 const { Sider } = Layout;
@@ -14,14 +15,17 @@ class Left extends Component {
 		collapsed: false,
 	};
 
+	// menu中收起左侧栏
 	onCollapse = () => {
 		this.props.toggle();
 	};
 
+	// 创建Menu的icon
 	geticon = iconname => {
 		return React.createElement(Icon[iconname]);
 	};
 
+	// 遍历渲染menu
 	getMenuNodes = menuList => {
 		// 得到当前请求的路由路径
 		const path = this.props.location.pathname;
@@ -68,13 +72,24 @@ class Left extends Component {
 		}, []);
 	};
 
+	onOpenChange = keys => {
+		console.log(keys);
+		// const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+		// if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+		// 	setOpenKeys(keys);
+		// } else {
+		// 	setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+		// }
+	};
+
 	render() {
+		// 渲染路由
 		this.menuNodes = this.getMenuNodes(menuList);
 
 		const { collapsed } = this.props;
 		const openKey = this.openKey;
+		// 获取当前路由
 		let path = this.props.location.pathname;
-		// console.log('render()', path);
 		if (path.indexOf('/product') === 0) {
 			// 当前请求的是商品或其子路由界面
 			path = '/product';
@@ -99,7 +114,7 @@ class Left extends Component {
 						)}
 					</a>
 				</div>
-				<Menu mode='inline' theme='dark' selectedKeys={[path]} defaultOpenKeys={[openKey]}>
+				<Menu mode='inline' theme='dark' onOpenChange={this.onOpenChange} selectedKeys={[path]} defaultOpenKeys={[openKey]}>
 					{this.menuNodes}
 				</Menu>
 			</Sider>

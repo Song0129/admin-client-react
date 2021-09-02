@@ -12,7 +12,7 @@ import qs from 'qs';
 
 //自定义axios实例
 let http = axios.create({
-	baseURL: process.env.REACT_APP_BASE_API,
+	// baseURL: process.env.REACT_APP_BASE_API,
 	withCredentials: true,
 	timeout: 6000,
 	maxContentLength: 5000,
@@ -62,7 +62,7 @@ function apiAxios(method, url, params) {
 		})
 			.then(res => {
 				// console.log(res);
-				resolve(res.data);
+				resolve(res);
 			})
 			.catch(err => {
 				console.log(err);

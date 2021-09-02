@@ -1,3 +1,6 @@
+/**
+ * 统一保存请求地址
+ */
 const users = {
 	login: '/login',
 };

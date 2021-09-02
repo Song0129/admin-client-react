@@ -4,6 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './styles/transition.less'; //引入路由转场动画
 
 import storageUtils from './utils/storageUtils';
 import memoryUtils from './utils/memoryUtils';

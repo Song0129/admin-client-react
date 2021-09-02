@@ -11,6 +11,7 @@ export default class Head extends Component {
 		collapsed: false,
 	};
 
+	// 隐藏/显示侧边栏
 	toggle = () => {
 		this.props.toggle();
 	};

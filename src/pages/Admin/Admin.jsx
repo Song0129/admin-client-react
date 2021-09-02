@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { Layout } from 'antd';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'; // 引入动画效果
 
 import { getMenuItemInMenuListByProperty } from '../../utils';
 import Head from '../../components/Head';

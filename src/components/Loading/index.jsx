@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Spin } from 'antd';
+import { Spin } from 'antd'; //antd中加载效果
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
 
