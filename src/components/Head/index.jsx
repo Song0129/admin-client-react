@@ -7,6 +7,7 @@ import menuList from '../../config/menuConfig';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
 import { formateDate } from '../../utils/dateUtils';
+import { reqWeather } from '../../api';
 import './index.less';
 
 const { Header } = Layout;
@@ -19,6 +20,7 @@ class Head extends Component {
 
 	componentDidMount() {
 		this.getTime();
+		this.getWeather();
 	}
 
 	getTime = () => {
@@ -27,6 +29,14 @@ class Head extends Component {
 			const currentTime = formateDate(Date.now());
 			this.setState({ currentTime });
 		}, 1000);
+	};
+
+	getWeather = () => {
+		// 调用接口请求异步获取数据
+		const result = reqWeather('北京');
+		console.log(result);
+		// 更新状态
+		// this.setState({ dayPictureUrl, weather });
 	};
 
 	// 隐藏/显示侧边栏
