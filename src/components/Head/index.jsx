@@ -20,7 +20,7 @@ class Head extends Component {
 
 	componentDidMount() {
 		this.getTime();
-		this.getWeather();
+		// this.getWeather();
 	}
 
 	getTime = () => {

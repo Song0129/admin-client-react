@@ -17,13 +17,21 @@ const menuList = [
 			{
 				title: '品类管理',
 				icon: 'BarsOutlined',
-				path: '/category',
+				path: '/products/category',
 				roles: ['admin', 'editor', 'guest'],
+				children: [
+					{
+						title: '品类管理....',
+						icon: 'BarsOutlined',
+						path: '/products/category/list',
+						roles: ['admin', 'editor', 'guest'],
+					},
+				],
 			},
 			{
 				title: '商品管理',
 				icon: 'ToolOutlined',
-				path: '/product',
+				path: '/products/product',
 				roles: ['admin', 'editor', 'guest'],
 			},
 		],

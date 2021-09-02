@@ -8,11 +8,65 @@ import './index.less';
 import menuList from '../../config/menuConfig';
 
 const { Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+const { SubMenu, Item } = Menu;
 
 class Left extends Component {
 	state = {
 		collapsed: false,
+		openKeys: [],
+		selectedKeys: [],
+	};
+
+	componentDidMount() {
+		// 防止页面刷新侧边栏又初始化了
+		const pathname = this.props.location.pathname;
+		//获取当前所在的目录层级
+		const rank = pathname.split('/');
+		switch (rank.length) {
+			case 2: //一级目录
+				this.setState({
+					selectedKeys: [pathname],
+				});
+				break;
+			case 5: //三级目录，要展开两个subMenu
+				this.setState({
+					selectedKeys: [pathname],
+					openKeys: [rank.slice(0, 3).join('/'), rank.slice(0, 4).join('/')],
+				});
+				break;
+			default:
+				this.setState({
+					selectedKeys: [pathname],
+					openKeys: [pathname.substr(0, pathname.lastIndexOf('/'))],
+				});
+		}
+	}
+
+	onOpenChange = openKeys => {
+		// console.log('打开', openKeys, this.state.selectedKeys);
+		//此函数的作用只展开当前父级菜单（父级菜单下可能还有子菜单）
+		if (openKeys.length === 0 || openKeys.length === 1) {
+			this.setState({
+				openKeys,
+			});
+			return;
+		}
+
+		//最新展开的菜单
+		const latestOpenKey = openKeys[openKeys.length - 1];
+		//判断最新展开的菜单是不是父级菜单，若是父级菜单就只展开一个，不是父级菜单就展开父级菜单和当前子菜单
+		//因为我的子菜单的key包含了父级菜单，所以不用像官网的例子单独定义父级菜单数组，然后比较当前菜单在不在父级菜单数组里面。
+		//只适用于3级菜单
+		// console.log(latestOpenKey);
+		if (latestOpenKey.includes(openKeys[0])) {
+			this.setState({
+				openKeys,
+			});
+		} else {
+			this.setState({
+				openKeys: [latestOpenKey],
+			});
+		}
 	};
 
 	// menu中收起左侧栏
@@ -25,75 +79,39 @@ class Left extends Component {
 		return React.createElement(Icon[iconname]);
 	};
 
-	// 遍历渲染menu
-	getMenuNodes = menuList => {
-		// 得到当前请求的路由路径
-		const path = this.props.location.pathname;
-
-		return menuList.reduce((pre, item) => {
-			// 如果当前用户有item对应的权限, 才需要显示对应的菜单项
-			// if (this.hasAuth(item)) {
-			// 向pre添加<Menu.Item>
-			if (!item.children) {
-				pre.push(
-					<Menu.Item key={item.path} icon={this.geticon(item.icon)}>
-						<Link to={item.path}>
-							{/* <Icon type={item.icon} /> */}
-							<span>{item.title}</span>
-						</Link>
-					</Menu.Item>
-				);
-			} else {
-				// 查找一个与当前请求路径匹配的子Item
-				const cItem = item.children.find(cItem => path.indexOf(cItem.path) === 0);
-				// 如果存在, 说明当前item的子列表需要打开
-				if (cItem) {
-					this.openKey = item.path;
-				}
-
-				// 向pre添加<SubMenu>
-				pre.push(
-					<SubMenu
-						key={item.path}
-						icon={this.geticon(item.icon)}
-						title={
-							<span>
-								{/* <Icon type={item.icon} /> */}
-								<span>{item.title}</span>
-							</span>
-						}>
-						{this.getMenuNodes(item.children)}
-					</SubMenu>
-				);
-			}
-			// }
-
-			return pre;
-		}, []);
+	renderMenuItem = ({ path, icon, title }) => {
+		return (
+			<Item key={path} icon={this.geticon(icon)}>
+				<Link to={path}>
+					<span>{title}</span>
+				</Link>
+			</Item>
+		);
 	};
 
-	onOpenChange = keys => {
-		console.log(keys);
-		// const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
-		// if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-		// 	setOpenKeys(keys);
-		// } else {
-		// 	setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-		// }
+	renderSubMenu = ({ path, icon, title, children }) => {
+		return (
+			<SubMenu key={path} icon={this.geticon(icon)} title={<span>{title}</span>}>
+				{children &&
+					children.map(item => {
+						return item.children && item.children.length > 0 ? this.renderSubMenu(item) : this.renderMenuItem(item);
+					})}
+			</SubMenu>
+		);
+	};
+
+	handleClick = menuItem => {
+		console.log(menuItem);
+		const { key, keyPath } = menuItem;
+		this.setState({ selectedKeys: [key] });
+		if (keyPath.length === 1) {
+			this.setState({ openKeys: [] });
+		}
 	};
 
 	render() {
-		// 渲染路由
-		this.menuNodes = this.getMenuNodes(menuList);
-
 		const { collapsed } = this.props;
-		const openKey = this.openKey;
-		// 获取当前路由
-		let path = this.props.location.pathname;
-		if (path.indexOf('/product') === 0) {
-			// 当前请求的是商品或其子路由界面
-			path = '/product';
-		}
+		const { openKeys, selectedKeys } = this.state;
 		return (
 			<Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
 				<div className='logo'>
@@ -114,8 +132,12 @@ class Left extends Component {
 						)}
 					</a>
 				</div>
-				<Menu mode='inline' theme='dark' onOpenChange={this.onOpenChange} selectedKeys={[path]} defaultOpenKeys={[openKey]}>
-					{this.menuNodes}
+				{/* <Menu theme='dark' onOpenChange={this.onOpenChange} onClick={({ key }) => this.setState({ selectedKeys: [key] })} openKeys={openKeys} selectedKeys={selectedKeys} mode='inline'> */}
+				<Menu theme='dark' onOpenChange={this.onOpenChange} onClick={this.handleClick} openKeys={openKeys} selectedKeys={selectedKeys} mode='inline'>
+					{menuList &&
+						menuList.map(item => {
+							return item.children && item.children.length > 0 ? this.renderSubMenu(item) : this.renderMenuItem(item);
+						})}
 				</Menu>
 			</Sider>
 		);
