@@ -1,10 +1,17 @@
 // import { message } from 'antd';
 import axios from './axios';
-import urls from '../config/urls';
+import { users, category } from '../config/urls'; //引入地址
 import jsonp from 'jsonp';
 
 // 登录
-export const reqLogin = (username, password) => axios.post(urls.users.login, { username, password });
+export const reqLogin = (username, password) => axios.post(users.login, { username, password });
+
+// 获取一级或某个二级分类列表
+export const reqCategorys = parentId => axios.get(category.list, { parentId });
+// 添加分类
+export const reqAddCategory = (parentId, categoryName) => axios.post(category.add, { parentId, categoryName });
+// 更新品类名称
+export const reqUpdateCategory = ({ categoryId, categoryName }) => axios.post(category.update, { categoryId, categoryName });
 
 // 获取百度天气
 export const reqWeather = city => {

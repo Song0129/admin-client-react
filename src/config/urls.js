@@ -1,11 +1,14 @@
 /**
  * 统一保存请求地址
  */
-const users = {
+// 用户相关
+export const users = {
 	login: '/login',
 };
 
-const urls = {
-	users,
+// 分类相关
+export const category = {
+	list: '/manage/category/list',
+	add: '/manage/category/add',
+	update: '/manage/category/update',
 };
-export default urls;

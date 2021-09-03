@@ -19,14 +19,6 @@ const menuList = [
 				icon: 'BarsOutlined',
 				path: '/products/category',
 				roles: ['admin', 'editor', 'guest'],
-				children: [
-					{
-						title: '品类管理....',
-						icon: 'BarsOutlined',
-						path: '/products/category/list',
-						roles: ['admin', 'editor', 'guest'],
-					},
-				],
 			},
 			{
 				title: '商品管理',
