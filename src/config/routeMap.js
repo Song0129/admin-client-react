@@ -14,8 +14,8 @@ const Pie = lazy(() => import(/*webpackChunkName:'Pie'*/ '../pages/Charts/Pie.js
 
 const routes = [
 	{ path: '/home', component: Home, roles: ['admin', 'editor', 'guest'] },
-	{ path: '/category', component: Category, roles: ['admin', 'editor', 'guest'] },
-	{ path: '/product', component: Product, roles: ['admin', 'editor', 'guest'] },
+	{ path: '/products/category', component: Category, roles: ['admin', 'editor', 'guest'] },
+	{ path: '/products/product', component: Product, roles: ['admin', 'editor', 'guest'] },
 	{ path: '/role', component: Role, roles: ['admin', 'editor', 'guest'] },
 	{ path: '/user', component: User, roles: ['admin', 'editor', 'guest'] },
 	{ path: '/charts/bar', component: Bar, roles: ['admin', 'editor', 'guest'] },
