@@ -12,3 +12,8 @@ export const category = {
 	add: '/manage/category/add',
 	update: '/manage/category/update',
 };
+
+// 商品相关
+export const product = {
+	list: 'mange',
+};
