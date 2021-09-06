@@ -48,8 +48,7 @@ export default class Category extends Component {
 		parentId = parentId || this.state.parentId;
 		const result = await reqCategorys(parentId);
 		this.setState({ loading: false });
-		console.log(result.data);
-		if (result.data.status === 0) {
+		if (result?.data.status === 0) {
 			const categorys = result.data.data;
 			if (parentId === '0') {
 				this.setState({ categorys });
@@ -78,22 +77,36 @@ export default class Category extends Component {
 	};
 
 	// 更新分类
-	updateCategory = async value => {
-		// console.log(this.form);
+	updateCategory = async () => {
 		const { getFieldsValue } = this.form.current;
 		const formData = getFieldsValue();
-		// console.log(getFieldsValue());
-		// console.log(this.category);
-		console.log(`object`, this.category._id, formData.categoryName);
 		const result = await reqUpdateCategory(this.category._id, formData.categoryName);
-		console.log(`result`, result);
-		if (result.data.status === 0) {
+		if (result?.data.status === 0) {
 			this.setState({
 				showStatus: 0,
 			});
+			// 清除输入数据
+			this.form.resetFields();
 			// 3. 重新显示列表
 			this.getCategorys();
 		}
+	};
+
+	// 显示添加分类的确认框
+	showAdd = category => {
+		this.category = category;
+		this.setState({ showStatus: 1 });
+	};
+
+	// 新增分类
+	addCategory = async () => {
+		// const { getFieldsValue, validateFields } = this.form.current;
+		// const formData = getFieldsValue(true);
+		// console.log(formData);
+		// console.log(`this.form`, this.form);
+		// validateFields(async (err, values) => {
+		// 	console.log(`err values`, err, values);
+		// });
 	};
 
 	// 显示查看子分类

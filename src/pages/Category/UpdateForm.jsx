@@ -19,8 +19,8 @@ export default class UpdateForm extends Component {
 	render() {
 		const { categoryName } = this.props;
 		return (
-			<Form ref={this.formRef}>
-				<Item name='categoryName' initialValue={categoryName} validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入用户名' }]}>
+			<Form ref={this.formRef} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+				<Item label='名称' name='categoryName' initialValue={categoryName} validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入分类名称' }]}>
 					<Input placeholder='请输入分类名称' />
 				</Item>
 			</Form>
