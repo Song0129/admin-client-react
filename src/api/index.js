@@ -11,7 +11,7 @@ export const reqCategorys = parentId => axios.get(category.list, { parentId });
 // 添加分类
 export const reqAddCategory = (parentId, categoryName) => axios.post(category.add, { parentId, categoryName });
 // 更新品类名称
-export const reqUpdateCategory = ({ categoryId, categoryName }) => axios.post(category.update, { categoryId, categoryName });
+export const reqUpdateCategory = (categoryId, categoryName) => axios.post(category.update, { categoryId, categoryName });
 
 // 获取百度天气
 export const reqWeather = city => {

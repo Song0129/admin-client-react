@@ -78,8 +78,22 @@ export default class Category extends Component {
 	};
 
 	// 更新分类
-	updateCategory = value => {
-		console.log(this.form);
+	updateCategory = async value => {
+		// console.log(this.form);
+		const { getFieldsValue } = this.form.current;
+		const formData = getFieldsValue();
+		// console.log(getFieldsValue());
+		// console.log(this.category);
+		console.log(`object`, this.category._id, formData.categoryName);
+		const result = await reqUpdateCategory(this.category._id, formData.categoryName);
+		console.log(`result`, result);
+		if (result.data.status === 0) {
+			this.setState({
+				showStatus: 0,
+			});
+			// 3. 重新显示列表
+			this.getCategorys();
+		}
 	};
 
 	// 显示查看子分类

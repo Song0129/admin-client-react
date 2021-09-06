@@ -48,11 +48,11 @@ http.interceptors.response.use(
 
 function apiAxios(method, url, params) {
 	// 请求时默认增加token参数
-	let token = localStorage.getItem('token');
-	if (token) {
-		let obj = { token };
-		Object.assign(params, obj);
-	}
+	// let token = localStorage.getItem('token');
+	// if (token) {
+	// 	let obj = { token };
+	// 	Object.assign(params, obj);
+	// }
 	return new Promise((resolve, reject) => {
 		http({
 			method: method,
@@ -62,6 +62,7 @@ function apiAxios(method, url, params) {
 		})
 			.then(res => {
 				// console.log(res);
+				res = res ? res : { data: {} };
 				resolve(res);
 			})
 			.catch(err => {
