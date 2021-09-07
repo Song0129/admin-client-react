@@ -100,13 +100,13 @@ export default class Category extends Component {
 
 	// 新增分类
 	addCategory = async () => {
-		// const { getFieldsValue, validateFields } = this.form.current;
-		// const formData = getFieldsValue(true);
-		// console.log(formData);
+		const { getFieldsValue, validateFields } = this.form.current;
+		const formData = getFieldsValue(true);
+		console.log('formData', formData);
 		// console.log(`this.form`, this.form);
-		// validateFields(async (err, values) => {
-		// 	console.log(`err values`, err, values);
-		// });
+		validateFields(async (err, values) => {
+			console.log(`err values`, err, values);
+		});
 	};
 
 	// 显示查看子分类
@@ -129,6 +129,7 @@ export default class Category extends Component {
 	// 取消
 	handleCancel = () => {
 		this.setState({ showStatus: 0 });
+		this.form.current.resetFields();
 	};
 
 	componentDidMount() {
