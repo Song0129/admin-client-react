@@ -104,9 +104,9 @@ export default class Category extends Component {
 		const formData = getFieldsValue(true);
 		console.log('formData', formData);
 		// console.log(`this.form`, this.form);
-		validateFields(async (err, values) => {
-			console.log(`err values`, err, values);
-		});
+		// validateFields(async (err, values) => {
+		// 	console.log(`err values`, err, values);
+		// });
 	};
 
 	// 显示查看子分类
