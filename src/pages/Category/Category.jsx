@@ -100,13 +100,14 @@ export default class Category extends Component {
 
 	// 新增分类
 	addCategory = async () => {
-		const { getFieldsValue, validateFields } = this.form.current;
-		const formData = getFieldsValue(true);
-		console.log('formData', formData);
-		// console.log(`this.form`, this.form);
-		// validateFields(async (err, values) => {
-		// 	console.log(`err values`, err, values);
-		// });
+		const { validateFields } = this.form.current;
+		validateFields()
+			.then(async values => {
+				console.log(`values`, values);
+			})
+			.catch(err => {
+				console.log(`err`, err);
+			});
 	};
 
 	// 显示查看子分类
