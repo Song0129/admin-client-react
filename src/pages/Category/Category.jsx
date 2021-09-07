@@ -81,12 +81,12 @@ export default class Category extends Component {
 		const { getFieldsValue } = this.form.current;
 		const formData = getFieldsValue();
 		const result = await reqUpdateCategory(this.category._id, formData.categoryName);
-		if (result?.data.status === 0) {
+		if (result?.data?.status === 0) {
 			this.setState({
 				showStatus: 0,
 			});
 			// 清除输入数据
-			this.form.resetFields();
+			this.form.current.resetFields();
 			// 3. 重新显示列表
 			this.getCategorys();
 		}
@@ -100,10 +100,21 @@ export default class Category extends Component {
 
 	// 新增分类
 	addCategory = async () => {
-		const { validateFields } = this.form.current;
+		const { validateFields, resetFields } = this.form.current;
 		validateFields()
 			.then(async values => {
 				console.log(`values`, values);
+				const result = await reqAddCategory(values.parentId, values.categoryName);
+				console.log(`result`, result);
+				if (result?.data?.status === 0) {
+					this.setState({
+						showStatus: 0,
+					});
+					// 清除输入数据
+					resetFields();
+					// 3. 重新显示列表
+					this.getCategorys();
+				}
 			})
 			.catch(err => {
 				console.log(`err`, err);
