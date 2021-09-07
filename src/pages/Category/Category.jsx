@@ -103,9 +103,7 @@ export default class Category extends Component {
 		const { validateFields, resetFields } = this.form.current;
 		validateFields()
 			.then(async values => {
-				console.log(`values`, values);
 				const result = await reqAddCategory(values.parentId, values.categoryName);
-				console.log(`result`, result);
 				if (result?.data?.status === 0) {
 					this.setState({
 						showStatus: 0,
