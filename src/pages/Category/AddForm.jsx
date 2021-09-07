@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Select, Input, Button } from 'antd';
+import { Form, Select, Input } from 'antd';
 
 const { Item } = Form;
 const { Option } = Select;
@@ -19,8 +19,15 @@ export default class AddForm extends Component {
 		this.props.setForm(this.formRef);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		// TODO 暂时解决选中态更新不及时的问题
+		const { parentId } = this.props;
+		this.formRef.current.setFieldsValue({ parentId });
+	}
+
 	render() {
 		const { categorys, parentId } = this.props;
+		console.log(`parentId`, parentId);
 		return (
 			<Form initialValues={{ parentId }} ref={this.formRef} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 				<Item label='分类' name='parentId' validateTrigger={['onChange', 'onBlur']} required rules={[{ required: true, message: '请输入分类名称' }]}>
