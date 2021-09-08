@@ -16,11 +16,17 @@ export default class UpdateForm extends Component {
 		this.props.setForm(this.formRef);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		// TODO 暂时解决选中态更新不及时的问题
+		const { categoryName } = this.props;
+		this.formRef.current.setFieldsValue({ categoryName });
+	}
+
 	render() {
 		const { categoryName } = this.props;
 		return (
-			<Form ref={this.formRef} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-				<Item label='名称' name='categoryName' initialValue={categoryName} validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入分类名称' }]}>
+			<Form initialValues={{ categoryName }} ref={this.formRef} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+				<Item label='名称' name='categoryName' validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入分类名称' }]}>
 					<Input placeholder='请输入分类名称' />
 				</Item>
 			</Form>
