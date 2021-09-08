@@ -180,7 +180,7 @@ export default class Category extends Component {
 			<Card title={title} extra={extra}>
 				<Table bordered rowKey='_id' loading={loading} dataSource={parentId === '0' ? categorys : subCategorys} columns={this.columns} pagination={{ defaultPageSize: 5, showQuickJumper: true }} />
 
-				<Modal title='添加分类' visible={showStatus === 1} onOk={this.addCategory} onCancel={this.handleCancel}>
+				<Modal title='添加分类' centered visible={showStatus === 1} onOk={this.addCategory} onCancel={this.handleCancel}>
 					<AddForm
 						categorys={categorys}
 						parentId={parentId}
@@ -190,7 +190,7 @@ export default class Category extends Component {
 					/>
 				</Modal>
 
-				<Modal title='更新分类' visible={showStatus === 2} onOk={this.updateCategory} onCancel={this.handleCancel}>
+				<Modal title='更新分类' centered visible={showStatus === 2} onOk={this.updateCategory} onCancel={this.handleCancel}>
 					<UpdateForm
 						categoryName={category.name ? category.name : ''}
 						setForm={form => {
