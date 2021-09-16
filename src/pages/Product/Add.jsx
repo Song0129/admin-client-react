@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 
 export default class Add extends Component {
 	render() {
-		return <div></div>;
+		return <div>添加、修改</div>;
 	}
 }
