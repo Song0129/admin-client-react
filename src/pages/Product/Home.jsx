@@ -41,12 +41,12 @@ export default class Home extends Component {
 					const { status, _id } = product;
 					const newStatus = status === 1 ? 2 : 1;
 					return (
-						<span>
+						<div style={{ color: '#f0f', textAlign: 'center' }}>
 							<Button type='primary' onClick={() => this.updateStatus(_id, newStatus)}>
 								{status === 1 ? '下架' : '上架'}
 							</Button>
 							<span>{status === 1 ? '在售' : '已下架'}</span>
-						</span>
+						</div>
 					);
 				},
 			},
@@ -55,11 +55,15 @@ export default class Home extends Component {
 				title: '操作',
 				render: product => {
 					return (
-						<span>
+						<div>
 							{/*将product对象使用state传递给目标路由组件*/}
-							<Button onClick={() => this.props.history.push('/product/detail', { product })}>详情</Button>
-							<Button onClick={() => this.props.history.push('/product/addupdate', product)}>修改</Button>
-						</span>
+							<Button type='link' onClick={() => this.props.history.push('/products/product/detail', { product })}>
+								详情
+							</Button>
+							<Button type='link' onClick={() => this.props.history.push('/products/product/add', product)}>
+								修改
+							</Button>
+						</div>
 					);
 				},
 			},
@@ -80,7 +84,6 @@ export default class Home extends Component {
 			result = await reqProducts(pageNum, PAGE_SIZE);
 		}
 		this.setState({ loading: false });
-		console.log(result.data);
 		if (result.data.status === 0) {
 			const { total, list } = result.data.data;
 			this.setState({
@@ -93,11 +96,21 @@ export default class Home extends Component {
 	/*
         更新指定商品的状态
     */
-	updateStatus = () => {};
+	updateStatus = async (productId, status) => {
+		const result = await reqUpdateStatus(productId, status);
+		if (result.data.status === 0) {
+			message.success('更新商品状态成功');
+			this.getProducts(this.pageNum);
+		}
+	};
 
 	componentDidMount() {
 		this.initColumns();
 		this.getProducts(1);
+	}
+
+	componentWillUnmount() {
+		this.setState = () => false;
 	}
 
 	render() {
@@ -105,7 +118,7 @@ export default class Home extends Component {
 		const { products, total, loading, searchType, searchName } = this.state;
 
 		const title = (
-			<span>
+			<div>
 				<Select value={searchType} style={{ width: 150 }} onChange={value => this.setState({ searchType: value })}>
 					<Option value='productName'>按名称搜索</Option>
 					<Option value='productDesc'>按描述搜索</Option>
@@ -114,7 +127,7 @@ export default class Home extends Component {
 				<Button type='primary' onClick={() => this.getProducts(1)}>
 					搜索
 				</Button>
-			</span>
+			</div>
 		);
 
 		const extra = (
