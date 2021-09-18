@@ -110,7 +110,9 @@ export default class Home extends Component {
 	}
 
 	componentWillUnmount() {
-		this.setState = () => false;
+		this.setState = (state, callback) => {
+			return;
+		};
 	}
 
 	render() {

@@ -73,6 +73,7 @@ export default class Admin extends Component {
 							margin: '24px 16px',
 							padding: 24,
 							minHeight: 280,
+							overflowY: 'scroll',
 						}}>
 						<TransitionGroup>
 							<CSSTransition key={location.pathname} timeout={5000} classNames='fade' exit={false}>
