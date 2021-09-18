@@ -7,6 +7,6 @@ export default class PictureWall extends Component {
 		fileList: [],
 	};
 	render() {
-		return <div></div>;
+		return <div>照片上传</div>;
 	}
 }
