@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Select, Input, Button, Table, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
+import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api/index';
 import { PAGE_SIZE } from '../../utils/constants';
 
 const { Option } = Select;
@@ -68,7 +69,26 @@ export default class Home extends Component {
 	/*
         获取指定页码的列表数据显示
     */
-	getProducts = async () => {};
+	getProducts = async pageNum => {
+		this.pageNum = pageNum;
+		this.setState({ loading: true });
+		const { searchName, searchType } = this.state;
+		let result;
+		if (searchName) {
+			result = await reqSearchProducts({ pageNum, pageSize: PAGE_SIZE, searchName, searchType });
+		} else {
+			result = await reqProducts(pageNum, PAGE_SIZE);
+		}
+		this.setState({ loading: false });
+		console.log(result.data);
+		if (result.data.status === 0) {
+			const { total, list } = result.data.data;
+			this.setState({
+				total,
+				products: list,
+			});
+		}
+	};
 
 	/*
         更新指定商品的状态
