@@ -75,18 +75,18 @@ export default class Admin extends Component {
 							minHeight: 280,
 							overflowY: 'scroll',
 						}}>
-						<TransitionGroup>
-							<CSSTransition key={location.pathname} timeout={5000} classNames='fade' exit={false}>
-								<Suspense location={location} fallback={<Loading />}>
-									<Switch>
-										{routeList.map(route => {
-											return handleFilter(route) && <Route component={route.component} key={route.path} path={route.path} />;
-										})}
-										<Redirect exact from='/' to='/home' />
-									</Switch>
-								</Suspense>
-							</CSSTransition>
-						</TransitionGroup>
+						{/* <TransitionGroup>
+							<CSSTransition key={location.pathname} timeout={5000} classNames='fade' exit={false}> */}
+						<Suspense location={location} fallback={<Loading />}>
+							<Switch>
+								{routeList.map(route => {
+									return handleFilter(route) && <Route component={route.component} key={route.path} path={route.path} />;
+								})}
+								<Redirect exact from='/' to='/home' />
+							</Switch>
+						</Suspense>
+						{/* </CSSTransition>
+						</TransitionGroup> */}
 					</Content>
 					<Footer style={{ textAlign: 'center', backgroundColor: '#fff', color: '#aaaaaa', padding: '13px 40px' }}>推荐使用谷歌浏览器， 可以获得更佳页面操作体验</Footer>
 				</Layout>

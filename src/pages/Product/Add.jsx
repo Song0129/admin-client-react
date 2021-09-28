@@ -158,11 +158,6 @@ export default class Add extends Component {
 		this.getCategorys('0');
 	}
 
-	// shouldComponentUpdate() {
-	// 	// POP 浏览器前进后退， PUSH 点击Link
-	// 	return this.props.location.action === 'POP';
-	// }
-
 	componentWillUnmount() {
 		this.setState = (state, callback) => {
 			return;
