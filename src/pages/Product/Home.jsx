@@ -105,9 +105,15 @@ export default class Home extends Component {
 	};
 
 	componentDidMount() {
+		console.log('home componentDidMount');
 		this.initColumns();
 		this.getProducts(1);
 	}
+
+	// shouldComponentUpdate() {
+	// 	// POP 浏览器前进后退， PUSH 点击Link
+	// 	return this.props.location.action === 'POP';
+	// }
 
 	componentWillUnmount() {
 		this.setState = (state, callback) => {

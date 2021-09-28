@@ -41,11 +41,11 @@ export default class Detail extends Component {
 		}
 	}
 
-	componentWillUnmount() {
-		this.setState = (state, callback) => {
-			return;
-		};
-	}
+	// componentWillUnmount() {
+	// 	this.setState = (state, callback) => {
+	// 		return;
+	// 	};
+	// }
 
 	render() {
 		// 读取携带过来的state数据
