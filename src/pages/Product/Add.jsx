@@ -198,7 +198,7 @@ export default class Add extends Component {
 
 		return (
 			<Card title={title}>
-				<Form ref={this.formRef} {...formItemLayout} initialValues={{ name: product.name, price: product.price, desc: product.desc, categoryId: categoryIds }}>
+				<Form ref={this.formRef} {...formItemLayout} initialValues={{ name: product.name, price: product.price, desc: product.desc, categoryIds: categoryIds }}>
 					<Item label='商品名称' name='name' validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入商品名称' }]}>
 						<Input placeholder='请输入商品名称' />
 					</Item>
@@ -225,7 +225,7 @@ export default class Add extends Component {
 						]}>
 						<Input type='number' placeholder='请输入商品价格' />
 					</Item>
-					<Item label='商品分类' name='categoryId' validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请指定商品分类' }]}>
+					<Item label='商品分类' name='categoryIds' validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请指定商品分类' }]}>
 						<Cascader placeholder='请指定商品分类' options={this.state.options} loadData={this.loadData} />
 					</Item>
 					<Item label='商品图片'>
