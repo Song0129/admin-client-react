@@ -1,0 +1,72 @@
+.home {
+	padding: 24px;
+	background: #fff;
+	min-height: 850px;
+	.home-top {
+		display: flex;
+	}
+	.home-content {
+		width: 76%;
+		border: 1px solid #e8e8e8;
+		.home-menu {
+			font-size: 20px;
+			span {
+				cursor: pointer;
+			}
+			.home-menu-active {
+				border-bottom: 2px solid #1da57a;
+				color: #1da57a;
+				padding: 0 0 16px 0;
+			}
+			.home-menu-visited {
+				margin-right: 40px;
+			}
+		}
+		.home-table-left {
+			float: left;
+			width: 60%;
+		}
+		.home-table-right {
+			float: right;
+			width: 330px;
+		}
+	}
+	.anticon-reload {
+		transition: 1s all linear;
+	}
+	.anticon-reload:hover {
+		transform: rotate(360deg);
+	}
+
+	.anticon-arrow-up:hover {
+		animation: arrowUp 1s infinite linear;
+	}
+
+	@keyframes arrowUp {
+		0% {
+			transform: translate(0, 0px);
+		}
+
+		50% {
+			transform: translate(0, -4px);
+		}
+		100% {
+			transform: translate(0, 0px);
+		}
+	}
+	.anticon-arrow-down:hover {
+		animation: arrowDown 1s infinite linear;
+	}
+	@keyframes arrowDown {
+		0% {
+			transform: translate(0, 0px);
+		}
+
+		50% {
+			transform: translate(0, 4px);
+		}
+		100% {
+			transform: translate(0, 0px);
+		}
+	}
+}
