@@ -7,6 +7,8 @@ import './index.less';
 // 引入所有的menu
 import menuList from '../../config/menuConfig';
 
+import memoryUtils from '../../utils/memoryUtils';
+
 const { Sider } = Layout;
 const { SubMenu, Item } = Menu;
 
@@ -15,6 +17,41 @@ class Left extends Component {
 		collapsed: false,
 		openKeys: [],
 		selectedKeys: [],
+	};
+
+	constructor(props) {
+		super(props);
+		console.log(menuList);
+		this.menuList = menuList.reduce((pre, item) => {
+			console.log(item);
+			if (this.hasAuth(item)) {
+				pre.push(item);
+			}
+			return pre;
+		}, []);
+		// console.log(a);
+	}
+
+	hasAuth = item => {
+		const { path, isPublic } = item;
+
+		const menus = memoryUtils.user.role.menus;
+		const username = memoryUtils.user.username;
+
+		console.log(menus, username);
+		/*
+        1. 如果当前用户是admin
+        2. 如果当前item是公开的
+        3. 当前用户有此item的权限: key有没有menus中
+         */
+		if (username === 'admin' || isPublic || menus.indexOf(path) !== -1) {
+			return true;
+		} else if (item.children) {
+			// 4. 如果当前用户有此item的某个子item的权限
+			return !!item.children.find(child => menus.indexOf(child.path) !== -1);
+		}
+
+		return false;
 	};
 
 	componentDidMount() {
@@ -131,8 +168,8 @@ class Left extends Component {
 				</div>
 				{/* <Menu theme='dark' onOpenChange={this.onOpenChange} onClick={({ key }) => this.setState({ selectedKeys: [key] })} openKeys={openKeys} selectedKeys={selectedKeys} mode='inline'> */}
 				<Menu theme='dark' onOpenChange={this.onOpenChange} onClick={this.handleClick} openKeys={openKeys} selectedKeys={selectedKeys} mode='inline'>
-					{menuList &&
-						menuList.map(item => {
+					{this.menuList &&
+						this.menuList.map(item => {
 							return item.children && item.children.length > 0 ? this.renderSubMenu(item) : this.renderMenuItem(item);
 						})}
 				</Menu>

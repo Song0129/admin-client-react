@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import { formateDate } from '../../utils/dateUtils';
 import { reqDeleteUser, reqUsers, reqAddOrUpdateUser } from '../../api/index';
-import UserForm from './userForm';
+import UserForm from './UserForm';
 
 export default class User extends Component {
 	state = {

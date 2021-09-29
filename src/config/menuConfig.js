@@ -8,6 +8,7 @@ const menuList = [
 		path: '/home',
 		icon: 'HomeOutlined',
 		roles: ['admin', 'editor', 'guest'],
+		isPublic: true, // 公开的
 	},
 	{
 		title: '商品',
