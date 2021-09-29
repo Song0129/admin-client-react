@@ -129,28 +129,27 @@ export default class Add extends Component {
 
 				const product = { name, desc, price, imgs, detail, pCategoryId, categoryId };
 
-				// 如果是更新, 需要添加_id
+				// 如果是修改, 需要添加_id
 				if (this.isUpdate) {
 					product._id = this.product._id;
 				}
-				console.log(`product`, product);
 
-				// 2. 调用接口请求函数去添加/更新
+				// 2. 调用接口请求函数去添加/修改
 				const result = await reqAddOrUpdateProduct(product);
 
 				// 3. 根据结果提示
 				if (result.data.status === 0) {
-					message.success(`${this.isUpdate ? '更新' : '添加'}商品成功!`);
+					message.success(`${this.isUpdate ? '修改' : '添加'}商品成功!`);
+					// 清除输入数据
+					resetFields();
 					this.props.history.goBack();
 				} else {
-					message.error(`${this.isUpdate ? '更新' : '添加'}商品失败!`);
+					message.error(`${this.isUpdate ? '修改' : '添加'}商品失败!`);
 				}
 			})
 			.catch(err => {
 				console.log(`err`, err);
 			});
-		// // 清除输入数据
-		// resetFields();
 	};
 
 	componentDidMount() {

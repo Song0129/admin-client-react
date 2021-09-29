@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import { formateDate } from '../../utils/dateUtils';
 import { reqDeleteUser, reqUsers, reqAddOrUpdateUser } from '../../api/index';
-// import UserForm from './userForm';
+import UserForm from './userForm';
 
 export default class User extends Component {
 	state = {
@@ -102,23 +102,28 @@ export default class User extends Component {
         添加/更新用户
     */
 	addOrUpdateUser = async () => {
-		this.setState({ isShow: false });
-
-		// 1. 收集输入数据
-		const user = this.form.getFieldsValue();
-		this.form.resetFields();
-		// 如果是更新, 需要给user指定_id属性
-		if (this.user) {
-			user._id = this.user._id;
-		}
-
-		// 2. 提交添加的请求
-		const result = await reqAddOrUpdateUser(user);
-		// 3. 更新列表显示
-		if (result.data.status === 0) {
-			message.success(`${this.user ? '修改' : '添加'}用户成功`);
-			this.getUsers();
-		}
+		const { validateFields, resetFields } = this.form.current;
+		validateFields()
+			.then(async user => {
+				// 如果是更新, 需要给user指定_id属性
+				if (this.user) {
+					user._id = this.user._id;
+				}
+				// 提交添加的请求
+				const result = await reqAddOrUpdateUser(user);
+				this.setState({ isShow: false });
+				if (result.data.status === 0) {
+					message.success(`${this.user ? '修改' : '添加'}用户成功!`);
+					// 清除输入数据
+					resetFields();
+					this.getUsers();
+				} else {
+					message.error(`${this.user ? '修改' : '添加'}用户失败!`);
+				}
+			})
+			.catch(err => {
+				console.log(`err`, err);
+			});
 	};
 
 	getUsers = async () => {
@@ -163,10 +168,10 @@ export default class User extends Component {
 					visible={isShow}
 					onOk={this.addOrUpdateUser}
 					onCancel={() => {
-						this.form.resetFields();
+						this.form.current.resetFields();
 						this.setState({ isShow: false });
 					}}>
-					{/* <UserForm setForm={form => (this.form = form)} roles={roles} user={user} /> */}
+					<UserForm setForm={form => (this.form = form)} roles={roles} user={user} />
 				</Modal>
 			</Card>
 		);

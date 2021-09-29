@@ -78,7 +78,7 @@ export default class Category extends Component {
 
 	// 更新分类
 	updateCategory = async () => {
-		const { getFieldsValue } = this.form.current;
+		const { getFieldsValue, resetFields } = this.form.current;
 		const formData = getFieldsValue();
 		const result = await reqUpdateCategory(this.category._id, formData.categoryName);
 		if (result?.data?.status === 0) {
@@ -86,7 +86,7 @@ export default class Category extends Component {
 				showStatus: 0,
 			});
 			// 清除输入数据
-			this.form.current.resetFields();
+			resetFields();
 			// 3. 重新显示列表
 			this.getCategorys();
 		}
