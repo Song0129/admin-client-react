@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Table, Modal, message } from 'antd';
 import { formateDate } from '../../utils/dateUtils';
 import { reqDeleteUser, reqUsers, reqAddOrUpdateUser } from '../../api/index';
-import UserForm from './UserForm';
+// import UserForm from './UserForm';
 
 export default class User extends Component {
 	state = {
@@ -171,7 +171,7 @@ export default class User extends Component {
 						this.form.current.resetFields();
 						this.setState({ isShow: false });
 					}}>
-					<UserForm setForm={form => (this.form = form)} roles={roles} user={user} />
+					{/* <UserForm setForm={form => (this.form = form)} roles={roles} user={user} /> */}
 				</Modal>
 			</Card>
 		);
