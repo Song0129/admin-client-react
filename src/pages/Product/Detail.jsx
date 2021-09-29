@@ -12,40 +12,36 @@ export default class Detail extends Component {
 		cName2: '', // 二级分类名称
 	};
 
-	async componentDidMount() {
+	getCategory = async () => {
 		// 得到当前商品的分类ID
 		const { pCategoryId, categoryId } = this.props.location.state.product;
 		if (pCategoryId === '0') {
 			// 一级分类下的商品
 			const result = await reqCategory(categoryId);
-			const cName1 = result.data.name;
+			const cName1 = result.data.data.name;
 			this.setState({ cName1 });
 		} else {
 			// 二级分类下的商品
-			/*
-                //通过多个await方式发多个请求: 后面一个请求是在前一个请求成功返回之后才发送
-                const result1 = await reqCategory(pCategoryId) // 获取一级分类列表
-                const result2 = await reqCategory(categoryId) // 获取二级分类
-                const cName1 = result1.data.name
-                const cName2 = result2.data.name
-            */
-
 			// 一次性发送多个请求, 只有都成功了, 才正常处理
 			const results = await Promise.all([reqCategory(pCategoryId), reqCategory(categoryId)]);
-			const cName1 = results[0].data.name;
-			const cName2 = results[1].data.name;
+			const cName1 = results[0].data.data.name;
+			const cName2 = results[1].data.data.name;
 			this.setState({
 				cName1,
 				cName2,
 			});
 		}
+	};
+
+	componentDidMount() {
+		this.getCategory();
 	}
 
-	// componentWillUnmount() {
-	// 	this.setState = (state, callback) => {
-	// 		return;
-	// 	};
-	// }
+	componentWillUnmount() {
+		this.setState = (state, callback) => {
+			return;
+		};
+	}
 
 	render() {
 		// 读取携带过来的state数据

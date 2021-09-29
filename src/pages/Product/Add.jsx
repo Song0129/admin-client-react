@@ -135,16 +135,16 @@ export default class Add extends Component {
 				}
 				console.log(`product`, product);
 
-				// // 2. 调用接口请求函数去添加/更新
-				// const result = await reqAddOrUpdateProduct(product);
+				// 2. 调用接口请求函数去添加/更新
+				const result = await reqAddOrUpdateProduct(product);
 
-				// // 3. 根据结果提示
-				// if (result.data.status === 0) {
-				// 	message.success(`${this.isUpdate ? '更新' : '添加'}商品成功!`);
-				// 	this.props.history.goBack();
-				// } else {
-				// 	message.error(`${this.isUpdate ? '更新' : '添加'}商品失败!`);
-				// }
+				// 3. 根据结果提示
+				if (result.data.status === 0) {
+					message.success(`${this.isUpdate ? '更新' : '添加'}商品成功!`);
+					this.props.history.goBack();
+				} else {
+					message.error(`${this.isUpdate ? '更新' : '添加'}商品失败!`);
+				}
 			})
 			.catch(err => {
 				console.log(`err`, err);
