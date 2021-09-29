@@ -6,6 +6,7 @@ const menuList = [
 	{
 		title: '首页',
 		path: '/home',
+		key: '/home',
 		icon: 'HomeOutlined',
 		roles: ['admin', 'editor', 'guest'],
 		isPublic: true, // 公开的
@@ -14,17 +15,20 @@ const menuList = [
 		title: '商品',
 		icon: 'AppstoreOutlined',
 		path: '/products',
+		key: '/products',
 		children: [
 			{
 				title: '品类管理',
 				icon: 'BarsOutlined',
 				path: '/products/category',
+				key: '/products/category',
 				roles: ['admin', 'editor', 'guest'],
 			},
 			{
 				title: '商品管理',
 				icon: 'ToolOutlined',
 				path: '/products/product',
+				key: '/products/product',
 				roles: ['admin', 'editor', 'guest'],
 			},
 		],
@@ -32,36 +36,42 @@ const menuList = [
 	{
 		title: '用户管理',
 		path: '/user',
+		key: '/user',
 		icon: 'UserOutlined',
 		roles: ['admin', 'editor', 'guest'],
 	},
 	{
 		title: '角色管理',
 		path: '/role',
+		key: '/role',
 		icon: 'LockOutlined',
 		roles: ['admin', 'editor', 'guest'],
 	},
 	{
 		title: '图形图表',
 		path: '/charts',
+		key: '/charts',
 		icon: 'AppstoreOutlined',
 		roles: ['admin', 'editor', 'guest'],
 		children: [
 			{
 				title: '柱形图',
 				path: '/charts/bar',
+				key: '/charts/bar',
 				icon: 'BarChartOutlined',
 				roles: ['admin', 'editor', 'guest'],
 			},
 			{
 				title: '折线图',
 				path: '/charts/line',
+				key: '/charts/line',
 				icon: 'LineChartOutlined',
 				roles: ['admin', 'editor', 'guest'],
 			},
 			{
 				title: '饼图',
 				path: '/charts/pie',
+				key: '/charts/pie',
 				icon: 'PieChartOutlined',
 				roles: ['admin', 'editor', 'guest'],
 			},

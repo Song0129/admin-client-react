@@ -62,7 +62,7 @@ export default class Role extends Component {
 		return {
 			onClick: event => {
 				// 点击行
-				console.log('row onClick()', role);
+				// console.log('row onClick()', role);
 				// alert('点击行')
 				this.setState({
 					role,
@@ -75,42 +75,34 @@ export default class Role extends Component {
         添加角色
     */
 	addRole = () => {
-		// 进行表单验证, 只能通过了才向下处理
-		this.form.validateFields(async (error, values) => {
-			if (!error) {
-				// 隐藏确认框
-				this.setState({
-					isShowAdd: false,
-				});
-
-				// 收集输入数据
-				const { roleName } = values;
-				this.form.resetFields();
-
+		const { validateFields, resetFields } = this.form.current;
+		validateFields()
+			.then(async values => {
+				const { rolename } = values;
 				// 请求添加
-				const result = await reqAddRole(roleName);
+				const result = await reqAddRole(rolename);
 				// 根据结果提示/更新列表显示
 				if (result.data.status === 0) {
 					message.success('添加角色成功');
-					// this.getRoles()
+					// 隐藏确认框
+					this.setState({
+						isShowAdd: false,
+					});
 					// 新产生的角色
 					const role = result.data.data;
-					// 更新roles状态
-					/*const roles = this.state.roles
-                    roles.push(role)
-                    this.setState({
-                        roles
-                    })*/
-
 					// 更新roles状态: 基于原本状态数据更新
 					this.setState(state => ({
 						roles: [...state.roles, role],
 					}));
+					// 清空数据
+					resetFields();
 				} else {
 					message.success('添加角色失败');
 				}
-			}
-		});
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
 	};
 
 	/*
@@ -194,7 +186,7 @@ export default class Role extends Component {
 					onOk={this.addRole}
 					onCancel={() => {
 						this.setState({ isShowAdd: false });
-						this.form.resetFields();
+						this.form.current.resetFields();
 					}}>
 					<AddForm setForm={form => (this.form = form)} />
 				</Modal>

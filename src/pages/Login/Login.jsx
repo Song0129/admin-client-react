@@ -21,7 +21,7 @@ export default class Login extends Component {
 	handleSubmit = async event => {
 		const { username, password } = event;
 		const result = await reqLogin(username, password);
-		console.log(result);
+		// console.log(result);
 		if (result?.data.status === 0) {
 			// 登陆成功
 			// 提示登陆成功

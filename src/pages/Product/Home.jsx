@@ -105,7 +105,6 @@ export default class Home extends Component {
 	};
 
 	componentDidMount() {
-		console.log('home componentDidMount');
 		this.initColumns();
 		this.getProducts(1);
 	}

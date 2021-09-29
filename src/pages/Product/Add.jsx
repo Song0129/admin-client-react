@@ -153,7 +153,6 @@ export default class Add extends Component {
 	};
 
 	componentDidMount() {
-		console.log('add  componentDidMount');
 		this.getCategorys('0');
 	}
 
@@ -197,7 +196,7 @@ export default class Add extends Component {
 
 		return (
 			<Card title={title}>
-				<Form ref={this.formRef} {...formItemLayout} initialValues={{ name: product.name, price: product.price, desc: product.desc, categoryIds: categoryIds }}>
+				<Form ref={this.formRef} {...formItemLayout} initialValues={{ ...product, categoryIds: categoryIds }}>
 					<Item label='商品名称' name='name' validateTrigger={['onChange', 'onBlur']} rules={[{ required: true, message: '请输入商品名称' }]}>
 						<Input placeholder='请输入商品名称' />
 					</Item>

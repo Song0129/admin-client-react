@@ -21,15 +21,12 @@ class Left extends Component {
 
 	constructor(props) {
 		super(props);
-		console.log(menuList);
 		this.menuList = menuList.reduce((pre, item) => {
-			console.log(item);
 			if (this.hasAuth(item)) {
 				pre.push(item);
 			}
 			return pre;
 		}, []);
-		// console.log(a);
 	}
 
 	hasAuth = item => {
@@ -38,7 +35,6 @@ class Left extends Component {
 		const menus = memoryUtils.user.role.menus;
 		const username = memoryUtils.user.username;
 
-		console.log(menus, username);
 		/*
         1. 如果当前用户是admin
         2. 如果当前item是公开的
