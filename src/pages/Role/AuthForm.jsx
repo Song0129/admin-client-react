@@ -58,8 +58,9 @@ export default class AuthForm extends Component {
 	// 	});
 	// }
 
-	componentDidUpdate() {
-		if (this.props.role.menus !== this.state.checkedKeys) {
+	componentDidUpdate(prevProps) {
+		console.log(`prevProps`, prevProps);
+		if (this.props.role.menus !== prevProps.role.menus) {
 			this.setState({
 				checkedKeys: this.props.role.menus,
 			});
