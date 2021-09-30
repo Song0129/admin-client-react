@@ -31,7 +31,6 @@ export default class UserForm extends Component {
 
 	render() {
 		const { roles, user } = this.props;
-		console.log(user);
 		// 指定Item布局的配置对象
 		const formItemLayout = {
 			labelCol: { span: 4 }, // 左侧label的宽度

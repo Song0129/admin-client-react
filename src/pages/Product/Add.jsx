@@ -115,7 +115,6 @@ export default class Add extends Component {
 			.then(async values => {
 				// 1. 收集数据, 并封装成product对象
 				const { name, desc, price, categoryIds } = values;
-				console.log(values);
 				let pCategoryId, categoryId;
 				if (categoryIds.length === 1) {
 					pCategoryId = '0';

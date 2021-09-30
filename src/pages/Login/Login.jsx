@@ -43,7 +43,6 @@ export default class Login extends Component {
 
 	render() {
 		const user = memoryUtils.user;
-		console.log(user);
 		if (user && user._id) {
 			return <Redirect to='/' />;
 		}

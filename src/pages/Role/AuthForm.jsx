@@ -40,7 +40,7 @@ export default class AuthForm extends Component {
 
 	// 选中某个node时的回调
 	onCheck = checkedKeys => {
-		console.log('onCheck', checkedKeys);
+		// console.log('onCheck', checkedKeys);
 		this.setState({ checkedKeys });
 	};
 
@@ -59,7 +59,6 @@ export default class AuthForm extends Component {
 	// }
 
 	componentDidUpdate(prevProps) {
-		console.log(`prevProps`, prevProps);
 		if (this.props.role.menus !== prevProps.role.menus) {
 			this.setState({
 				checkedKeys: this.props.role.menus,

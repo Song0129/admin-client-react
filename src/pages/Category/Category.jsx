@@ -129,7 +129,7 @@ export default class Category extends Component {
 			},
 			() => {
 				// 在状态更新且重新render()后执行
-				console.log('parentId', this.state.parentId); // '0'
+				// console.log('parentId', this.state.parentId); // '0'
 				// 获取二级分类列表显示
 				this.getCategorys();
 			}

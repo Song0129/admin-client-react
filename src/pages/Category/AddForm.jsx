@@ -27,7 +27,6 @@ export default class AddForm extends Component {
 
 	render() {
 		const { categorys, parentId } = this.props;
-		console.log(`parentId`, parentId);
 		return (
 			<Form initialValues={{ parentId }} ref={this.formRef} style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
 				<Item label='分类' name='parentId' validateTrigger={['onChange', 'onBlur']} required rules={[{ required: true, message: '请输入分类名称' }]}>
